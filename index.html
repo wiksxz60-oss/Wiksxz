@@ -6,15 +6,14 @@
   <title>Wiksxz | Транспортная Фотография</title>
   <style>
     :root {
-      --bg: #010204; /* Еще темнее глубокий черный */
-      --accent: #0077ff; /* Спокойный синий */
+      --bg: #010204;
+      --accent: #0077ff;
       --glass: rgba(255, 255, 255, 0.01);
       --glass-border: rgba(0, 119, 255, 0.1);
       --text: #ffffff;
-      --text-dim: #708090; /* Более глухой серый */
+      --text-dim: #708090;
     }
 
-    /* ПЛАВНЫЕ ПЕРЕХОДЫ БЕЗ ДЕРГАНИЙ */
     * { box-sizing: border-box; transition: all 0.5s ease-out; }
 
     body {
@@ -30,7 +29,7 @@
       min-height: 100vh;
       padding: 30px 15px;
       -webkit-user-select: none; user-select: none;
-      letter-spacing: 0.5px; /* Чуть свободнее текст */
+      letter-spacing: 0.5px;
     }
 
     .container { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 25px; }
@@ -44,7 +43,6 @@
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
     }
 
-    /* ШАПКА */
     .profile-header { display: flex; align-items: center; gap: 25px; flex-wrap: wrap; }
     .avatar-box { width: 110px; height: 110px; flex-shrink: 0; }
     .avatar-box img { 
@@ -60,7 +58,6 @@
     }
     .name-info p { margin: 6px 0 0; color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 2.5px; opacity: 0.8; }
 
-    /* КНОПКИ СОЦСЕТЕЙ С ИКОНКАМИ */
     .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 30px; }
     .btn { 
       padding: 14px; background: rgba(0, 119, 255, 0.03); border: 1px solid var(--glass-border); 
@@ -68,12 +65,9 @@
       font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;
     }
     .btn svg { width: 18px; height: 18px; fill: var(--accent); opacity: 0.7; transition: 0.3s; }
-    
-    /* СПОКОЙНОЕ НАВЕДЕНИЕ: ТОЛЬКО СВЕЧЕНИЕ, БЕЗ СДВИГА */
     .btn:hover { background: rgba(0, 119, 255, 0.1); border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 119, 255, 0.3); }
     .btn:hover svg { opacity: 1; transform: scale(1.1); }
 
-    /* ВКЛАДКИ */
     .tabs-nav { display: flex; gap: 10px; overflow-x: auto; padding: 5px; margin-bottom: 25px; scrollbar-width: none; }
     .tabs-nav::-webkit-scrollbar { display: none; }
 
@@ -85,7 +79,6 @@
     }
     .tab-btn.active { background: rgba(0, 119, 255, 0.1); border-color: var(--accent); color: var(--accent); text-shadow: 0 0 15px rgba(0, 119, 255, 0.6); }
 
-    /* ГАЛЕРЕЯ */
     .gallery-grid { display: none; gap: 20px; width: 100%; animation: fadeIn 0.8s ease-in forwards; }
     .gallery-grid.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 
@@ -95,15 +88,15 @@
       background: rgba(0,0,0,0.6); border-radius: 24px; overflow: hidden; 
       border: 1px solid var(--glass-border); position: relative; aspect-ratio: 16/10; 
     }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+    /* УБРАН КУРСОР-УКАЗАТЕЛЬ С КАРТИНКИ */
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; cursor: default; }
     
-    /* СПОКОЙНОЕ НАВЕДЕНИЕ НА ФОТО */
     .gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 119, 255, 0.2); }
 
     .gallery-item .desc { 
       position: absolute; bottom: 0; left: 0; right: 0; 
       padding: 25px 20px 20px; background: linear-gradient(to top, rgba(0,0,0,0.98), transparent); 
-      font-size: 12px; opacity: 0; 
+      font-size: 12px; opacity: 0; pointer-events: none;
     }
     .gallery-item:hover .desc { opacity: 1; }
 
@@ -119,7 +112,6 @@
     .expand-btn:hover { background: var(--accent); border-color: var(--accent); }
     .expand-btn:hover svg { opacity: 1; fill: #000; }
 
-    /* ОФОРМЛЕНИЕ СЕКЦИИ ЭЛЕКТРОБУСОВ */
     #electro-grid {
         position: relative;
         padding: 20px;
@@ -133,7 +125,6 @@
     .electro-icon { width: 30px; height: 30px; fill: var(--accent); filter: drop-shadow(0 0 10px var(--accent)); }
     .electro-title { font-size: 18px; color: #fff; font-weight: 700; }
 
-    /* ЛАЙТБОКС */
     #lightbox {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.99); backdrop-filter: blur(30px);
@@ -149,7 +140,6 @@
     }
     .close-btn:hover { background: var(--accent); border-color: var(--accent); color: #000; }
 
-    /* ПОДВАЛ */
     .legal-footer {
         margin-top: 50px; padding: 30px; text-align: center;
         border-top: 1px solid var(--glass-border); width: 100%;
@@ -201,44 +191,16 @@
       <div class="tabs-nav">
         <div class="tab-btn active" onclick="openTab(event, 'fav')">Избранное</div>
         <div class="tab-btn" onclick="openTab(event, 'electro')">Электробусы</div>
-        <div class="tab-btn" onclick="openTab(event, 'archive')">Ликвидированные линии</div>
-        <div class="tab-btn" onclick="openTab(event, 'misc')">Прочее</div>
+        <div class="tab-btn" onclick="openTab(event, 'gas')">Газовые автобусы</div>
+        <div class="tab-btn" onclick="openTab(event, 'troll')">Ликвидированные троллейбусные линии</div>
       </div>
 
-      <div id="fav" class="gallery-grid active">
-        <div class="gallery-item">
-          <img src="photo1.jpg">
-          <div class="expand-btn" onclick="openImage('photo1.jpg')"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></div>
-          <div class="desc"><b>Деревянный изолятор</b><br>Бишкек.</div>
-        </div>
-        <div class="gallery-item">
-          <img src="photo2.jpg">
-          <div class="expand-btn" onclick="openImage('photo2.jpg')"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></div>
-          <div class="desc"><b>Подвесной тросс</b><br>Бишкек.</div>
-        </div>
-        <div class="gallery-item">
-          <img src="photo3.jpg">
-          <div class="expand-btn" onclick="openImage('photo3.jpg')"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></div>
-          <div class="desc"><b>Автобус Ankai B 0054</b><br>Бишкек.</div>
-        </div>
-      </div>
+      <div id="fav" class="gallery-grid active"></div>
 
-      <div id="electro" class="gallery-grid">
-         <div id="electro-grid" style="grid-column: 1/-1; width: 100%;">
-            <div class="electro-header">
-                <svg class="electro-icon" viewBox="0 0 24 24"><path d="M13 10V3L5.67 14H11v7l7.33-11H13z"/></svg>
-                <span class="electro-title">Новое поколение: Электробусы Бишкека</span>
-            </div>
-            <p style="text-align: center; color: var(--text-dim); font-size: 13px; padding: 20px;">Здесь скоро появятся фотографии современного экологичного транспорта.</p>
-         </div>
-      </div>
+      <div id="electro" class="gallery-grid"></div>
       
-      <div id="archive" class="gallery-grid">
-         <div style="padding: 40px; text-align: center; color: var(--text-dim); grid-column: 1/-1;">История и архивные кадры.</div>
-      </div>
-      <div id="misc" class="gallery-grid">
-         <div style="padding: 40px; text-align: center; color: var(--text-dim); grid-column: 1/-1;">Разные фотографии транспорта.</div>
-      </div>
+      <div id="gas" class="gallery-grid"></div>
+      <div id="troll" class="gallery-grid"></div>
     </div>
 
     <footer class="legal-footer">
@@ -250,23 +212,61 @@
 
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const photoDescriptions = {
+      "fav1.jpg": "<b>Деревянный изолятор</b><br>Бишкек",
+      "fav2.jpg": "<b>Утренний рейс электробуса</b><br>Бишкек",
+      "fav3.jpg": "<b>Троллейбусный подвес который остался после демонтажа линий</b><br>Бишкек",
+      "electro1.jpg": "<b>Вечерний рейс электробуса</b><br>Бишкек",
+      "gas1.jpg": "<b>Газовый автобус</b><br>Новый маршрут.",
+      "troll1.jpg": "<b>Подвесной тросс</b><br>Бишкек"
+    };
+
+    const config = { fav: 30, electro: 30, gas: 30, troll: 30 };
+
+    function loadGallery() {
+      for (const [category, count] of Object.entries(config)) {
+        const container = document.getElementById(category);
+        for (let i = 1; i <= count; i++) {
+          const imgName = `${category}${i}.jpg`;
+          const description = photoDescriptions[imgName] || ""; 
+
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          
+          item.innerHTML = `
+            <img src="${imgName}" onerror="this.parentElement.remove()">
+            <div class="expand-btn" onclick="openImage('${imgName}')">
+              <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            </div>
+            <div class="desc">${description}</div>
+          `;
+          container.appendChild(item);
+        }
+      }
+    }
+
+    loadGallery();
+
     function openTab(evt, name) {
       document.querySelectorAll(".gallery-grid").forEach(g => g.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
       document.getElementById(name).classList.add("active");
       evt.currentTarget.classList.add("active");
     }
+
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
+
     function closeImage() {
       document.getElementById('lightbox').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
+
     document.addEventListener('contextmenu', e => e.preventDefault());
   </script>
 </body>
 </html>
-
